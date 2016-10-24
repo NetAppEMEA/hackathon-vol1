@@ -1,0 +1,9 @@
+{
+  "camera_name" : "<Your camera name>",
+  "endpoint" : "https://<Your S3 Endpoint>:<Port>",
+  "bucket" : "<Your S3 Bucket>",
+  "access_key" : "<Your Access Key for S3>",
+  "secret_access_key" : "<Your Secret Access Key for S3>",
+  "elasticsearch_host" : "<ElasticSearch Host IP>:<Port>",
+  "camera_command" : "fswebcam -r 640x480 --jpeg 85 --delay 1"
+}
