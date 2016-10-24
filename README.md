@@ -76,7 +76,6 @@ Look in a file named [PREWORK.md](PREWORK.md) which details suggested activities
 
 ### Module 3: Setup RaspberryPI Camera Webservice
 * The files and instructions you need are in the [camera-webservice](camera-webservice) directory.
-* You will have the opportunity to use either the Python or the Ruby based webservice code.  
 
 ### Module 4: Get Webservice to upload S3 images
 Instructions are in the [camera-webservice/README.md](camera-webservice/README.md) file
@@ -85,14 +84,14 @@ Instructions are in the [camera-webservice/README.md](camera-webservice/README.m
 Instructions are in the [camera-webservice/README.md](camera-webservice/README.md) file
 
 ### Module 6: Explore and search with ElasticSearch
-Using the ElasticSearch Toolbox tools explore the data updated by all the hackers.  Come up with an idea of what to search.  Update the your webservice to add additional meta data to upload.
+Using the ElasticSearch Toolbox tools explore the data updated by all the hackers.  Come up with an idea of what to search.
 
 ### Module 7: Setup and run Docker on your laptop
 This module will be performed on your laptop and will not require the RaspberryPI.
 
 1. Docker needs to be installed on your laptop.  NOTE: There are different installers for Windows 10 and releases older than Windows 10 so be aware!
 2. Test some containers such as Ubuntu and httpd.
-3. Create your own Dockerfile based on on an inherited container (aka Ubuntu or httpd)
+3. Create your own Dockerfile based on an inherited container (aka Ubuntu or httpd)
 
 ### Module 8: Run a Docker based webservice
 Clone web app from github, build a container for your web app, start container, verify you can access and take a photo.
