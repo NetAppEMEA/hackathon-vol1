@@ -40,6 +40,15 @@ def create_es_indicies():
 			}
 		}
 		es.indices.create(index='photo', ignore=400, body=settings)
+	
+	# Post Camera info into ES index
+	if not es.indices.exists('camera'):
+		es.indices.create(index='camera', ignore=400)
+	res = es.index(index='camera', doc_type='camera_info', id=ip_address, body={'camera_name': conf['camera_name']})
+	if res['created']:
+		print ('## ElasticSearch saved at:  _index is [' + res['_index'] + '] and _id is [' + res['_id'] + ']')
+	else:
+		print ('## ElasticSearch update failed')
 
 class RootAPI(Resource):
 
