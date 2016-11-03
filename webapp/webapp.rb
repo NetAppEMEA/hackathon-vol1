@@ -1,8 +1,8 @@
 require 'sinatra'
 require 'unirest'
 require 'elasticsearch'
-require 'date'
 
+#TODO Externalize
 es_config = {host: "10.64.28.104:9200"}
 
 es = Elasticsearch::Client.new(es_config)
@@ -11,7 +11,7 @@ Unirest.timeout(20)
 # Show welcome page
 get "/" do
 
-  # Get known raspberries/endpoints from Elasticsearch
+  # Get known cameras from Elasticsearch
   @cameras = []
   response = es.search index: 'camera', q: '*', size: '100'
   response['hits']['hits'].each do |r|

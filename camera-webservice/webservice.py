@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # pip install flask flask-restful pillow boto3 json elasticsearch
 from flask import Flask, jsonify, abort, make_response, request
-from flask.ext.restful import Api, Resource, reqparse, fields, marshal
+from flask_restful import Api, Resource, reqparse, fields, marshal
 import time, socket, uuid, os, boto3, json, sys
 from datetime import datetime
 from elasticsearch import Elasticsearch
@@ -12,10 +12,6 @@ if os.name == 'nt':
 import botocore.vendored.requests
 from botocore.vendored.requests.packages.urllib3.exceptions import InsecureRequestWarning
 botocore.vendored.requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
-
-# Setup Flask
-app = Flask(__name__, static_url_path="")
-api = Api(app)
 
 # Get own IP address
 def get_ip_address():
@@ -57,6 +53,7 @@ class RootAPI(Resource):
 
 class TakePhotoAPI(Resource):
 
+	# route GET requests to POST (for debugging only)
 	def get(self):
 		return self.post()
 
@@ -116,8 +113,12 @@ class TakePhotoAPI(Resource):
 		# Return success
 		return make_response(jsonify(res_body), 200)
 
-api.add_resource(TakePhotoAPI, '/take_photo')
+# Setup Flask and REST Endpoint
+app = Flask(__name__, static_url_path="")
+api = Api(app)
+
 api.add_resource(RootAPI, '/')
+api.add_resource(TakePhotoAPI, '/take_photo')
 
 if __name__ == '__main__':
 
@@ -138,4 +139,4 @@ if __name__ == '__main__':
 	ip_address = get_ip_address()
 	#ip_address = '1.2.3.4'
 	create_es_indicies()
-	app.run(host='0.0.0.0', port=8080, debug=True )
+	app.run(host='0.0.0.0', port=8080, debug=True)
