@@ -2,10 +2,11 @@
   %head
   %body
     .header
-      %h1 Picture Viewer with a remote Webcam
+      %h1 Picture Viewer for remote webcams
     .content
-      - @ips.each do |ip|
-        %a(href="/take_photo/#{ip}")> Take new photo on Raspberry #{ip}
+      - @cameras.each do |camera|
+        %img(src="/green.png")
+        %a(href="/take_photo/#{camera[:ip]}")> Take new photo on Camera #{camera[:name]} (#{camera[:ip]})
         %br
     .footer
-      %p Hackathon - Vol 1 - 2016
+      %p Hackathon Insight EMEA - 2016

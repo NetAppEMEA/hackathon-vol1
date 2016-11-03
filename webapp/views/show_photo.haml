@@ -4,6 +4,7 @@
   %body
     .content
       %h1 Photo taken!
+      %p Image location is: #{@image_url}
+      %p Timestamp is: #{@timestamp}
       %img(src="#{@image_url}")
-      %p "Image location is: #{@image_url}"
       %img(src="/tagline.png")
