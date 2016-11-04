@@ -1,10 +1,21 @@
+!!! 5
 %html
   %head
-    %link(rel="stylesheet" type="text/css" href="styles.css")
+    %link(rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    %script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+    %script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+    %meta(charset="utf-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
   %body
-    .content
+    .container
       %h1 Photo taken!
-      %p Image location is: #{@image_url}
-      %p Timestamp is: #{@timestamp}
-      %img(src="#{@image_url}")
-      %img(src="/tagline.png")
+      .row
+        .col-sm-4
+          .panel.panel-default
+            .panel-heading Image URL
+            .panel-body #{@image_url}
+            .panel-heading Image Timestamp
+            .panel-body #{@timestamp}
+          %a(href="/")> Back
+        .col-sm-8
+          %img(src="#{@image_url}" class="img-responsive")

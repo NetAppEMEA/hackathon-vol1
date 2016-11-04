@@ -1,12 +1,28 @@
+!!! 5
 %html
   %head
+    %link(rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css")
+    %script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js")
+    %script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+    %meta(charset="utf-8")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
   %body
-    .header
+    .container
       %h1 Picture Viewer for remote webcams
-    .content
-      - @cameras.each do |camera|
-        %img(src="/green.png")
-        %a(href="/take_photo/#{camera[:ip]}")> Take new photo on Camera #{camera[:name]} (#{camera[:ip]})
-        %br
-    .footer
+      .row
+        .col-sm-4
+          %img(src="/tagline.png" class="img-rounded")
+        .col-sm-8
+          %ul(class="list-group")
+          - @cameras.each do |camera|
+            %li(class="list-group-item list-group-item-#{camera[:online] ? "success" : "danger"}")
+              %a(href="/take_photo/#{camera[:ip]}")> Take new photo on Camera #{camera[:name]} (#{camera[:ip]})
+      .row
+        %h1 Latest Pictures
+        - @photos.each do |photo|
+          .col-sm-3
+            .thumbnail
+              %img(src="#{photo[:url]}" class="img-thumbnail")
+              .p.text-center #{photo[:camera_name]}
+    .container
       %p Hackathon Insight EMEA - 2016

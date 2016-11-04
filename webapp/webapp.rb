@@ -12,10 +12,20 @@ Unirest.timeout(20)
 get "/" do
 
   # Get known cameras from Elasticsearch
+  ts = Time.now.to_i
   @cameras = []
   response = es.search index: 'camera', q: '*', size: '100'
   response['hits']['hits'].each do |r|
-    @cameras << {:name => r['_source']['camera_name'], :ip => r['_id']}
+    status = (ts - r['_source']['epoch_timestamp'].to_i < 120)
+    @cameras << {:name => r['_source']['camera_name'], :ip => r['_id'], :online => status}
+  end
+
+  # Get 4 latest photos
+  # FIXME, Doesnt return 4 latest yet
+  @photos = []
+  response = es.search index: 'photo', q: '*', size: '4'
+  response['hits']['hits'].each do |r|
+    @photos << {:url => r['_source']['url'], :camera_name => r['_source']['camera_name']}
   end
 
   haml :index
