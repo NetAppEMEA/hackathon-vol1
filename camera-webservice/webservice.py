@@ -92,7 +92,9 @@ class TakePhotoAPI(Resource):
 		session = boto3.session.Session(aws_access_key_id=conf['access_key'], aws_secret_access_key=conf['secret_access_key'])
 		s3 = session.resource(service_name='s3', endpoint_url=conf['endpoint'], verify=False)
 		obj = s3.Object(conf['bucket'], filename)
-		obj.upload_file(filename)
+		data = open(filename, 'rb')
+		obj.put(Body=data, ContentType='image/jpeg')
+		data.close()
 		os.remove(filename)
 		url = conf['endpoint'] + "/" + conf['bucket'] + "/" + filename
 		print ('## Photo saved at: ' + url)
