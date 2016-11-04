@@ -40,7 +40,7 @@ def create_es_indicies():
 	if not es.indices.exists('camera'):
 		es.indices.create(index='camera', ignore=400)
 	res = es.index(index='camera', doc_type='camera_info', id=ip_address, body={'camera_name': conf['camera_name'], 'epoch_timestamp': round(time.time())})
-	if res['created']:
+	if 'created' or 'updated' in res:
 		print ('## ElasticSearch saved at:  _index is [' + res['_index'] + '] and _id is [' + res['_id'] + ']')
 	else:
 		print ('## ElasticSearch update failed')
@@ -121,6 +121,7 @@ api.add_resource(TakePhotoAPI, '/take_photo')
 
 if __name__ == '__main__':
 
+	print ('## Starting camera-webservice')
 	try:
 		with open('config.json') as data_file:
 			conf = json.load(data_file)
@@ -138,4 +139,4 @@ if __name__ == '__main__':
 	ip_address = get_ip_address()
 	#ip_address = '1.2.3.4'
 	create_es_indicies()
-	app.run(host='0.0.0.0', port=8080, debug=True)
+	app.run(host='0.0.0.0', port=8080, debug=True, use_reloader=False)
