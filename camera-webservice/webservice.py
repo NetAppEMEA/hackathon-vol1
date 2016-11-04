@@ -22,7 +22,6 @@ def get_ip_address():
 # Create index with specific field settings
 def create_es_indicies():
 	es = Elasticsearch([conf['elasticsearch_host']])
-	#es.indices.delete(index='camera2', ignore=404)
 	if not es.indices.exists('photo'):
 		# index settings
 		settings = {
@@ -40,7 +39,7 @@ def create_es_indicies():
 	# Post Camera info into ES index
 	if not es.indices.exists('camera'):
 		es.indices.create(index='camera', ignore=400)
-	res = es.index(index='camera', doc_type='camera_info', id=ip_address, body={'camera_name': conf['camera_name']})
+	res = es.index(index='camera', doc_type='camera_info', id=ip_address, body={'camera_name': conf['camera_name'], 'epoch_timestamp': round(time.time())})
 	if res['created']:
 		print ('## ElasticSearch saved at:  _index is [' + res['_index'] + '] and _id is [' + res['_id'] + ']')
 	else:
