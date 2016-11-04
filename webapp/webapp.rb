@@ -21,11 +21,10 @@ get "/" do
   end
 
   # Get 4 latest photos
-  # FIXME, Doesnt return 4 latest yet
   @photos = []
-  response = es.search index: 'photo', q: '*', size: '4'
+  response = es.search index: 'photo', q: '*', size: '4', sort: 'timestamp:desc'
   response['hits']['hits'].each do |r|
-    @photos << {:url => r['_source']['url'], :camera_name => r['_source']['camera_name']}
+    @photos << {:url => r['_source']['url'], :camera_name => r['_source']['camera_name'], :timestamp => r['_source']['timestamp']}
   end
 
   haml :index
