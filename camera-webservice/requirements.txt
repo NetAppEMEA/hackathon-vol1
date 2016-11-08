@@ -1,5 +1,4 @@
 flask
 flask-restful
 boto3
-json
 elasticsearch
