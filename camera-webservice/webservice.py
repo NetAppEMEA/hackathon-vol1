@@ -80,7 +80,7 @@ class TakePhotoAPI(Resource):
 		filesize = os.path.getsize(filename)
 
 		# For testing to avoid S3 and ES posting
-		#  curl -s -H "Content-Type: application/json" -X POST -d '{"test":True}' http://localhost:8080/take_photo
+		#  curl -s -H "Content-Type: application/json" -X POST -d '{"test":true}' http://localhost:8080/take_photo
 		try:
 			if req['test'] is True:
 				print ('## Photo saved locally at: ' + filename)

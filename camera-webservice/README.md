@@ -20,7 +20,7 @@ This is a good time to **"Ask Google"** - *"what is boto3"* or *"how to install 
 2. Next, update all parameters to meet your needs
 **Note:** Use the same values you used previously.  
 3. For the `camera_command` parameter these might be helpful:
-  * Example linux USB camera: `fswebcam -r 640x480 --jpeg 85 --delay 1`
+  * Example linux USB camera: `fswebcam -r 640x480 --jpeg 85 --no-banner`
   * Example native raspberry camera module: `raspistill -o`
   * Example windows usb camera: `CommandCam.exe /quiet /filename`
 
