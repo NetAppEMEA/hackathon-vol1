@@ -28,8 +28,8 @@ This is a good time to **"Ask Google"** - *"what is boto3"* or *"how to install 
 The webservice.py script has the following dependencies. Make sure these are installed.
 
 * OS Package dependencies (use `apt-get` to install): `python-pip` 
-* Python module dependencies (use `pip` to install): `flask flask-restful pillow boto3 elasticsearch picamera`
-* On Windows: [CommandCam](https://batchloaf.wordpress.com/commandcam/) photo software placed in same directory as `webservice.py`
+* Python module dependencies (use `pip` to install): `flask flask-restful boto3 elasticsearch picamera`
+* On Windows: Additionally the Python module `pillow` and the [CommandCam](https://batchloaf.wordpress.com/commandcam/) photo software placed in same directory as `webservice.py`
 
 * Start the webservice and check that it is running.
 
@@ -37,7 +37,9 @@ The webservice.py script has the following dependencies. Make sure these are ins
 * Load the browser to `http://ip_address:8080`
 * Debug: if errors, check that the program packages are installed.
 
-### Common: Step 3 - Test taking a simple picture
+### Step 3 - Test taking a simple picture
+* The webservice supports taking a photo and NOT uploading to S3 or posting metadata to ElasticSearch:
+** `curl -s -H "Content-Type: application/json" -X POST -d '{"test":true}' http://localhost:8080/take_photo`
 * Load the browser to `http://ip_address:8080/take_photo`
 * Did you see a picture.  If the camera did not work, go back and test that taking the photo is working.
 
