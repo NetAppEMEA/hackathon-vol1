@@ -23,7 +23,7 @@ get "/" do
 
   # Get 4 latest photos
   @photos = []
-  response = es.search index: 'photo', type: 'info', body: {query: {match_all: {}}, size: 4}
+  response = es.search index: 'photo', type: 'info', body: {query: {match_all: {}}, size: 4, sort: [{timestamp: 'desc'}]}
   response['hits']['hits'].each do |r|
     @photos << {:url => r['_source']['url'], :camera_name => r['_source']['camera_name'], :timestamp => r['_source']['timestamp']}
   end
