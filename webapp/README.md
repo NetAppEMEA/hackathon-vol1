@@ -6,7 +6,7 @@
 
 # Steps
 1. Install Docker on your laptop (Docker for Windows or Mac)
-2. Test that Docker is running properly. Test some containers (try docker/whalesay, Ubuntu and nginx examples)
+2. Test that Docker is running properly, e.g., run docker/whalesay
 3. Clone code from github to your laptop
 4. Build a container for your webap
 5. Run the container and take and show photos
