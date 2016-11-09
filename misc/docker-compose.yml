@@ -1,0 +1,36 @@
+version: "2"
+services:
+  elasticsearch:
+    image: elasticsearch:2.3.5
+    volumes:
+      - /opt/elasticsearch/data:/usr/share/elasticsearch/data
+      - /opt/elasticsearch/conf:/usr/share/elasticsearch/config
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+
+  grafana:
+    image: grafana/grafana:3.1.1
+    volumes:
+      - /opt/grafana/data:/var/lib/grafana
+      - /opt/grafana/conf:/etc/grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    image: kibana:4.5.4
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    ports:
+      - "5601:5601"
+    depends_on:
+      - elasticsearch
+
+  webapp:
+    image: webapp
+    ports:
+      - "8081:8081"
+    depends_on:
+      - elasticsearch
