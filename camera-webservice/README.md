@@ -39,7 +39,7 @@ The webservice.py script has the following dependencies. Make sure these are ins
 
 ### Step 3 - Test taking a simple picture
 * The webservice supports taking a photo and NOT uploading to S3 or posting metadata to ElasticSearch:
-** `curl -s -H "Content-Type: application/json" -X POST -d '{"test":true}' http://localhost:8080/take_photo`
+ * `curl -s -H "Content-Type: application/json" -X POST -d '{"test":true}' http://localhost:8080/take_photo`
 * Load the browser to `http://ip_address:8080/take_photo`
 * Did you see a picture.  If the camera did not work, go back and test that taking the photo is working.
 
