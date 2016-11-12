@@ -2,7 +2,7 @@
 # pip install flask flask-restful pillow boto3 json elasticsearch
 from flask import Flask, jsonify, abort, make_response, request
 from flask_restful import Api, Resource, reqparse, fields, marshal
-import time, socket, uuid, os, boto3, json, sys
+import time, socket, uuid, os, boto3, json, sys, threading
 from datetime import datetime
 from elasticsearch import Elasticsearch
 if os.name == 'nt':
@@ -22,6 +22,7 @@ def get_ip_address():
 # Create index with specific field settings
 def create_es_indicies():
 	es = Elasticsearch([conf['elasticsearch_host']])
+	# Create photo index if needed
 	if not es.indices.exists('photo'):
 		# index settings
 		settings = {
@@ -36,14 +37,21 @@ def create_es_indicies():
 		}
 		es.indices.create(index='photo', ignore=400, body=settings)
 	
-	# Post Camera info into ES index
+	# Create camera index if needed
 	if not es.indices.exists('camera'):
 		es.indices.create(index='camera', ignore=400)
-	res = es.index(index='camera', doc_type='camera_info', id=ip_address, body={'camera_name': conf['camera_name'], 'epoch_timestamp': round(time.time())})
-	if 'created' or 'updated' in res:
-		print ('## ElasticSearch saved at:  _index is [' + res['_index'] + '] and _id is [' + res['_id'] + ']')
-	else:
-		print ('## ElasticSearch update failed')
+
+# Update camera index every 60s as a heartbeat to determine 'active' cameras
+def heartbeat_es_index(elasticsearch_host, ip_address, camera_name):
+	while (1):
+		es = Elasticsearch([conf['elasticsearch_host']])
+		ts = round(time.time())
+		res = es.index(index='camera', doc_type='camera_info', id=ip_address, body={'camera_name': conf['camera_name'], 'epoch_timestamp': ts})
+		if 'created' or 'updated' in res:
+			print ('## ElasticSearch heartbeat saved at: _index=[' + res['_index'] + '], _id=[' + res['_id'] + '], epoch_timestamp=[' + str(ts) + ']')
+		else:
+			print ('## ElasticSearch heartbeat update failed')
+		time.sleep(60)
 
 class RootAPI(Resource):
 
@@ -107,7 +115,7 @@ class TakePhotoAPI(Resource):
 		res_body = { 'timestamp': ts, 'url': url, 'filesize': filesize, 'camera_name': conf['camera_name'], 'camera_ip': ip_address}
 		res = es.index(index='photo', doc_type='info', body=res_body)
 		if res['created']:
-			print ('## ElasticSearch saved at:  _index is [' + res['_index'] + '] and _id is [' + res['_id'] + ']')
+			print ('## ElasticSearch saved at:  _index=[' + res['_index'] + '], _id=[' + res['_id'] + ']')
 		else:
 			print ('## ElasticSearch update failed')
 
@@ -141,4 +149,7 @@ if __name__ == '__main__':
 	ip_address = get_ip_address()
 	#ip_address = '1.2.3.4'
 	create_es_indicies()
+	t = threading.Thread(target=heartbeat_es_index, args=(conf['elasticsearch_host'], ip_address, conf['camera_name']), daemon=True)
+	t.start()
+	print ('## camera-webservice will be reachable at http://'+ ip_address + ':8080')
 	app.run(host='0.0.0.0', port=8080, debug=True, use_reloader=False)
