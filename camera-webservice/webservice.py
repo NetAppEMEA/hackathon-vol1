@@ -149,7 +149,8 @@ if __name__ == '__main__':
 	ip_address = get_ip_address()
 	#ip_address = '1.2.3.4'
 	create_es_indicies()
-	t = threading.Thread(target=heartbeat_es_index, args=(conf['elasticsearch_host'], ip_address, conf['camera_name']), daemon=True)
+	t = threading.Thread(target=heartbeat_es_index, args=(conf['elasticsearch_host'], ip_address, conf['camera_name']))
+	t.daemon = True
 	t.start()
 	print ('## camera-webservice will be reachable at http://'+ ip_address + ':8080')
 	app.run(host='0.0.0.0', port=8080, debug=True, use_reloader=False)
