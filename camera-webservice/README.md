@@ -1,50 +1,33 @@
 #camera-webservice
 
 ## Summary: 
-A Python webservice called webservice.py was written for this Hack-night event.  Google won't help you with any information specifically about the script, but you will find lots of information about the libraries used in the script.  
+Here is a Python webservice called webservice.py written for this event.  Google won't help you with any information specifically about the script, but you will find lots of information about the libraries used in the script.  Proceed in steps.
 
-The process to getting the webservice running can be done in one go, but many find it easier to build it up in steps:
+### 1 - Setup the Raspberry Pi and take a photo
+1. Install required prerequisites:
+* OS Package dependencies (hint: use `apt-get`): `python-pip fswebcam git` 
+* Python module dependencies (hint: use `pip`): `flask flask-restful boto3 elasticsearch`
+* On Windows: Additionally the Python module `pillow` and the [CommandCam](https://batchloaf.wordpress.com/commandcam/) photo software placed in same directory as `webservice.py`
+2. Take a photo with `fswebcam` or `commandcam.exe`, transfer this to your laptop (`scp`, and maybe `winscp` are your friends), and verify the camera focus is good.  Repeat as necessary :-)
 
-1. Install dependencies and then get the basic webservice running
-2. Get the webservice to snap pictures
-3. Get the webservice to upload images to S3
-4. Get the webservice to upload meta data to ElasticSearch.
-
-### Key learnings
-Now is a good time to make sure you understand all the dependencies and packages that are needed.  Part of the learning is to understand what *'python-pip'* is, what *'boto3'* is used for and how it, and how to install Python packages.  Learn about *flask*.  The hack-night leader might stop and ask you what they are.
-
-This is a good time to **"Ask Google"** - *"what is boto3"* or *"how to install boto3*.  These are all open source libraries and tools.    
-
-### Step 0 - Configure service - `config.json` ###
-1. First rename the `config.json.example` to `config.json`
-2. Next, update all parameters to meet your needs
-**Note:** Use the same values you used previously.  
-3. For the `camera_command` parameter these might be helpful:
+### 2- Setup the camera-webservice
+1. Clone the repo from github (hint: use `git`)
+1. Copy the camera-webserivce `config.json.example` to `config.json`
+1. Update all parameters to meet your needs
+1. For the `camera_command` parameter these might be helpful:
   * Example linux USB camera: `fswebcam -r 640x480 --jpeg 85 --no-banner`
   * Example native raspberry camera module: `raspistill -o`
   * Example windows usb camera: `CommandCam.exe /quiet /filename`
 
-### Step 1 - Install required packages.  Test the webservice.
-The webservice.py script has the following dependencies. Make sure these are installed.
+### 3 - Run the Camera webservice
+1. Start it up with `python webservice.py`.  Do you see any errors? Troubleshoot and fix them.
+1. Use your browser to load `http://ip_address:8080`  Does it report that everything is ok?  If not, troubleshoot and fix them.
 
-* OS Package dependencies (use `apt-get` to install): `python-pip` 
-* Python module dependencies (use `pip` to install): `flask flask-restful boto3 elasticsearch picamera`
-* On Windows: Additionally the Python module `pillow` and the [CommandCam](https://batchloaf.wordpress.com/commandcam/) photo software placed in same directory as `webservice.py`
+### 4 -Take a photo
+1. Use your browser to call the API:
+ * `http://ip_address:8080/take_photo`
+ *   Does it report that everything is ok?  Can you view your photo?  If not, troubleshoot and fix.
+1. Use curl to call the API:
+ * `curl http://ip_address:8080/take_photo`
+1. Use your browser to load `http://ip_address:8080`  Does it report that everything is ok?  If not, troubleshoot and fix them.
 
-* Start the webservice and check that it is running.
-
-### Step 2 - Test the webservice is running
-* Load the browser to `http://ip_address:8080`
-* Debug: if errors, check that the program packages are installed.
-
-### Step 3 - Test taking a simple picture
-* The webservice supports taking a photo and NOT uploading to S3 or posting metadata to ElasticSearch:
- * `curl -s -H "Content-Type: application/json" -X POST -d '{"test":true}' http://localhost:8080/take_photo`
-* Load the browser to `http://ip_address:8080/take_photo`
-* Did you see a picture.  If the camera did not work, go back and test that taking the photo is working.
-
-## More hacking ideas - Keep Going!
-1. Add more key/value pair information to the ElasticSearch post.  If you were going to add meta data to an image, what sort of meta data might you include about the picture?
-2. Upload a file to ElasticSearch - think what if I uploaded a perfstat to Elasticsearch every hour, then let Elasticsearch search and report on the information in the perfstat file.  Is this practical application.
-3. Add object attributes to the S3 upload.  
-4. Change the RESTful API calls.  If you don't like `http://ip_address/test`, change it to something else. 
