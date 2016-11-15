@@ -2,9 +2,7 @@ require 'sinatra'
 require 'unirest'
 require 'elasticsearch'
 
-#TODO Externalize
-es_config = {host: "10.64.28.104:9200"}
-
+es_config = {host: ENV['ELASTICSEARCH_HOST']}
 es = Elasticsearch::Client.new(es_config)
 
 Unirest.timeout(20)

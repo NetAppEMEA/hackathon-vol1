@@ -6,5 +6,7 @@ RUN gem install sinatra shotgun unirest haml elasticsearch
 RUN mkdir /sinatra
 COPY / /sinatra/
 
+# Update ElasticSearch Target
+ENV ELASTICSEARCH_HOST=<hostname/ip>:9200
 EXPOSE 8081
 ENTRYPOINT ["shotgun", "--host", "0.0.0.0", "--port", "8081", "/sinatra/webapp.rb"]

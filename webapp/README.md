@@ -6,10 +6,11 @@
 
 # Steps
 1. Install Docker on your laptop (Docker for Windows or Mac)
-2. Test that Docker is running properly, e.g., `docker run docker/whalesay`, or `docker run --rm -it egray/cmatrix`
-3. Clone code from github to your laptop
-4. Build a container for your webapp
-5. Run the container and take and show photos
+1. Test that Docker is running properly, e.g., `docker run docker/whalesay`, or `docker run --rm -it egray/cmatrix`
+1. Clone code from github to your laptop
+1. Update `Dockerfile` with correct address of ElasticSearch
+1. Build a container for your webapp
+1. Run the container and take and show photos
 
 # Hints
 
