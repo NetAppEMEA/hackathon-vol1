@@ -140,7 +140,7 @@
               "timeField": "timestamp"
             }
           ],
-          "thresholds": "20,30",
+          "thresholds": "15,25",
           "title": "Total Cameras Seen",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -167,7 +167,7 @@
           "error": false,
           "format": "none",
           "gauge": {
-            "maxValue": 1000,
+            "maxValue": 3000,
             "minValue": 0,
             "show": true,
             "thresholdLabels": true,
@@ -236,7 +236,7 @@
               "timeField": "timestamp"
             }
           ],
-          "thresholds": "700,900",
+          "thresholds": "1500,2000",
           "title": "Total Photos Taken",
           "type": "singlestat",
           "valueFontSize": "100%",
@@ -370,8 +370,8 @@
           "scroll": true,
           "showHeader": true,
           "sort": {
-            "col": 1,
-            "desc": true
+            "col": null,
+            "desc": false
           },
           "span": 3,
           "styles": [
@@ -403,7 +403,7 @@
                   "settings": {
                     "order": "desc",
                     "orderBy": "_count",
-                    "size": "5"
+                    "size": "0"
                   },
                   "type": "terms"
                 }
@@ -450,7 +450,9 @@
             "min": true,
             "show": true,
             "total": true,
-            "values": true
+            "values": true,
+            "sortDesc": true,
+            "sort": "total"
           },
           "lines": false,
           "linewidth": 2,
@@ -512,7 +514,7 @@
             "msResolution": false,
             "shared": true,
             "sort": 0,
-            "value_type": "cumulative"
+            "value_type": "individual"
           },
           "type": "graph",
           "xaxis": {
@@ -561,7 +563,9 @@
             "min": false,
             "show": true,
             "total": true,
-            "values": true
+            "values": true,
+            "sortDesc": true,
+            "sort": "total"
           },
           "lines": false,
           "linewidth": 0,
@@ -623,7 +627,7 @@
             "msResolution": false,
             "shared": true,
             "sort": 0,
-            "value_type": "cumulative"
+            "value_type": "individual"
           },
           "type": "graph",
           "xaxis": {
@@ -690,7 +694,7 @@
   },
   "refresh": "5s",
   "schemaVersion": 12,
-  "version": 4,
+  "version": 9,
   "links": [],
   "gnetId": null
 }
