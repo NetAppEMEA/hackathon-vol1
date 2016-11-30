@@ -18,4 +18,4 @@ mkdir /opt/elasticsearch/conf/scripts
 
 echo "Run docker using"
 echo "Interatively: docker-compose up"
-echo "Daemon: docker-compose -d up"
+echo "Daemon: docker-compose up -d"

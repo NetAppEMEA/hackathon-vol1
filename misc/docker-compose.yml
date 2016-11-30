@@ -30,6 +30,8 @@ services:
 
   webapp:
     image: webapp
+	environment:
+     - ELASTICSEARCH_HOST=http://elasticsearch:9200
     ports:
       - "8081:8081"
     depends_on:
