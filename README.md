@@ -1,4 +1,4 @@
-# hackathon-vol1 -- NetApp's Hackers Night @ Insight EMEA!
+# hackathon-vol1 -- NetApp's Hackers Night
 
 ![alt text](https://cloud.githubusercontent.com/assets/917241/20307809/701866c8-ab41-11e6-8709-3fd4c6b0bfd9.png)
 
@@ -32,7 +32,7 @@ As with any tech challenge proceed in steps and verify all is well (including yo
  * Create a bucket for your Pi using the credentials supplied; pick a bucket name that is unique for your team
  * Use your S3 client to put stuff in the bucket and get it out
  * Try to access the stuff in the bucket from your web browser.  What URL would you use?  Do you get access denied?  Then set the [bucket_policy.json](bucket_policy.json) to allow anonymous `read` and `list` anonymous access to objects and try again.
- * Note: CyberDuck won't allow you to set Bucket Policies, so you will have to do this another way.  Ask Clemens if you can't google it :-)
+ * Note: CyberDuck won't allow you to set Bucket Policies, so you will have to do this another way. Ask Clemens if you can't google it :-) (Hint: s3cmd or aws cli)
 
 ### Setup the camera-webservice on the Raspberry Pi
 1. Find the steps here: [camera-webservice/](camera-webservice/)
