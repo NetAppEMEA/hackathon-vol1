@@ -5,9 +5,9 @@ Here is a Python webservice called webservice.py written for this event.  Google
 
 ### 1 - Setup the Raspberry Pi and take a photo
 1. Install required prerequisites:
- * OS Package dependencies (hint: use `apt-get`): `python-pip fswebcam git` 
- * Python module dependencies (hint: use `pip`): `flask flask-restful boto3 elasticsearch`
- * On Windows: Additionally the Python module `pillow` and the [CommandCam](https://batchloaf.wordpress.com/commandcam/) photo software placed in same directory as `webservice.py`
+    * OS Package dependencies (hint: use `apt-get`): `python-pip fswebcam git` 
+    * Python module dependencies (hint: use `pip`): `flask flask-restful boto3 elasticsearch`
+    * On Windows: Additionally the Python module `pillow` and the [CommandCam](https://batchloaf.wordpress.com/commandcam/) photo software placed in same directory as `webservice.py`
 2. Take a photo with `fswebcam` or `commandcam.exe`, transfer this to your laptop (`scp`, and maybe `winscp` are your friends), and verify the camera focus is good.  Repeat as necessary :-)
 
 ### 2- Setup the camera-webservice
@@ -15,9 +15,9 @@ Here is a Python webservice called webservice.py written for this event.  Google
 1. Copy the camera-webserivce `config.json.example` to `config.json`
 1. Update all parameters to meet your needs
 1. For the `camera_command` parameter these might be helpful:
-  * Example linux USB camera: `fswebcam -r 640x480 --jpeg 85 --no-banner`
-  * Example native raspberry camera module: `raspistill -o`
-  * Example windows usb camera: `CommandCam.exe /quiet /filename`
+    * Example linux USB camera: `fswebcam -r 1280x720 --jpeg 85 --no-banner -S 20`
+    * Example native raspberry camera module: `raspistill -o`
+    * Example windows usb camera: `CommandCam.exe /quiet /filename`
 
 ### 3 - Run the Camera webservice
 1. Start it up with `python webservice.py`.  Do you see any errors? Troubleshoot and fix them.
