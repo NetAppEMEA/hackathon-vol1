@@ -5,5 +5,5 @@
   "access_key" : "<Your Access Key for S3>",
   "secret_access_key" : "<Your Secret Access Key for S3>",
   "elasticsearch_host" : "<ElasticSearch Host IP>:<Port>",
-  "camera_command" : "fswebcam -r 640x480 --jpeg 85 --no-banner"
+  "camera_command" : "fswebcam -r 1280x720 --jpeg 85 --no-banner -S 20"
 }
